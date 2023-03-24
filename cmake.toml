@@ -2,13 +2,20 @@
 [project]
 name = "Test-retdec"
 languages = ["CXX"]
+cmake-after = """
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Output)
+add_definitions(-DSRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
+"""
 
 [subdir.3rdparty]
+
+[fetch-content.googletest]
+git = "https://github.com/google/googletest"
+tag = "release-1.12.1"
 
 [target.test-bytes2llvmir]
 type = "executable"
 sources = ["test/test-bytes2llvmir/**.cpp", "test/test-bytes2llvmir/**.h"]
-link-libraries = ["capstone2llvmir-X86"]
+link-libraries = ["capstone2llvmir-X86", "gtest"]
 compile-features = ["cxx_std_20"]
-
-
+include-directories = ["googletest/googletest/include"]

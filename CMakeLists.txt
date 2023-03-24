@@ -29,6 +29,20 @@ project(Test-retdec
 		CXX
 )
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Output)
+add_definitions(-DSRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
+
+include(FetchContent)
+
+message(STATUS "Fetching googletest (release-1.12.1)...")
+FetchContent_Declare(googletest
+	GIT_REPOSITORY
+		"https://github.com/google/googletest"
+	GIT_TAG
+		release-1.12.1
+)
+FetchContent_MakeAvailable(googletest)
+
 # Subdirectory: 3rdparty
 set(CMKR_CMAKE_FOLDER ${CMAKE_FOLDER})
 if(CMAKE_FOLDER)
@@ -41,6 +55,7 @@ set(CMAKE_FOLDER ${CMKR_CMAKE_FOLDER})
 
 # Target: test-bytes2llvmir
 set(test-bytes2llvmir_SOURCES
+	"test/test-bytes2llvmir/capstone2llvmir.cpp"
 	"test/test-bytes2llvmir/main.cpp"
 	cmake.toml
 )
@@ -54,8 +69,13 @@ target_compile_features(test-bytes2llvmir PRIVATE
 	cxx_std_20
 )
 
+target_include_directories(test-bytes2llvmir PRIVATE
+	"googletest/googletest/include"
+)
+
 target_link_libraries(test-bytes2llvmir PRIVATE
 	capstone2llvmir-X86
+	gtest
 )
 
 get_directory_property(CMKR_VS_STARTUP_PROJECT DIRECTORY ${PROJECT_SOURCE_DIR} DEFINITION VS_STARTUP_PROJECT)
