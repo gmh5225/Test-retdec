@@ -59,7 +59,7 @@ TEST(capstone2llvmir, test_1)
 
     try
     {
-        auto BASEADDR = 0x41F000;
+        auto BASEADDR = 0x14001000;
         // create arch (capstone)
         auto c2l = Capstone2LlvmIrTranslator::createArch(CS_ARCH_X86, &module, CS_MODE_64, CS_MODE_LITTLE_ENDIAN);
         c2l->translate(CODE.data(), CODE.size(), BASEADDR, irb, 0, false, false);
