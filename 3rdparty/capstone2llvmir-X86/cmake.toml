@@ -1,0 +1,59 @@
+# Reference: https://build-cpp.github.io/cmkr/cmake-toml
+[project]
+name = "capstone2llvmir-X86"
+include-before = [
+	"configurations.cmake"
+]
+
+[subdir.utils]
+[subdir.common]
+[subdir.capstone-retdec]
+[subdir.llvm-retdec]
+
+[target.capstone2llvmir-X86]
+type = "static"
+headers = [
+"include/retdec/capstone2llvmir/**.h",
+"include/retdec/capstone2llvmir/x86/**.h"
+]
+
+sources = [
+    "capstone2llvmir/**.cpp", 
+    "capstone2llvmir/**.h", 
+    "capstone2llvmir/x86/**.cpp",
+    "capstone2llvmir/x86/**.h"
+]
+
+include-directories = [
+"./",
+"include", 
+"include/retdec",
+"include/whereami",
+"capstone-retdec/include",
+"llvm-retdec/include"
+]
+
+link-libraries = [
+"capstone-static",
+"retdec-common", 
+"retdec-utils",
+"LLVMSupport", 
+"LLVMAnalysis",
+"LLVMCore"
+]
+
+compile-features = ["cxx_std_20"]
+
+
+
+[target.test-capstone2llvmir-x86]
+type = "executable"
+sources = ["test/test-capstone2llvmir-x86/**.cpp", "test/test-capstone2llvmir-x86/**.h"]
+link-libraries = [
+"capstone2llvmir-X86"
+]
+compile-features = ["cxx_std_20"]
+
+
+
+

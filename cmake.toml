@@ -1,0 +1,14 @@
+# Reference: https://build-cpp.github.io/cmkr/cmake-toml
+[project]
+name = "Test-retdec"
+languages = ["CXX"]
+
+[subdir.3rdparty]
+
+[target.test-bytes2llvmir]
+type = "executable"
+sources = ["test/test-bytes2llvmir/**.cpp", "test/test-bytes2llvmir/**.h"]
+link-libraries = ["capstone2llvmir-X86"]
+compile-features = ["cxx_std_20"]
+
+

@@ -1,0 +1,20 @@
+
+[target.retdec-utils]
+type = "static"
+
+sources = [
+    "**.cpp",
+    "**.h",
+    "io/**.cpp",
+    "io/**.h",
+    "whereami/**.c",
+]
+
+include-directories = [
+"../include", 
+"../include/retdec",
+"../include/whereami"
+]
+
+compile-features = ["cxx_std_20"]
+
